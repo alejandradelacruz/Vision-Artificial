@@ -34,11 +34,11 @@ while not converge:
 
         if fsal >= 0 and y[i] == 0:
             print(f'Para entrada {x}, pertenece a la clase 1')
-            w = w - r * xn  
+            w = w - r * xn  #Correcion para clase 1
             converge = False
         elif fsal <= 0 and y[i] == 1: 
             print(f'Para entrada {x}, pertenece a la clase 2')
-            w = w + r * xn  # Corrección para clase 1
+            w = w + r * xn  # Corrección para clase 2
             converge = False
         else:
             print(f'Para entrada {x}, permanece sin cambios')
