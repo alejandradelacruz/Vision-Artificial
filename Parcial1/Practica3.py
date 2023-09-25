@@ -13,16 +13,16 @@ w = np.zeros(4)
 for i in range(3):
     w[i] = float(input(f'Ingrese el valor del peso w{i + 1}: '))
 
-w[3] = float(input('Ingrese el valor del peso w0: '))
-
-# Factor de correlación
-r = float(input('Ingrese el valor de r: '))
+r = float(input('Ingrese el valor del coeficiente de error r: '))
+if r <= 0:
+    print('El coeficiente de error debe ser mayor a 0.')
+    exit()
 
 converge = False
 etapa = 0
 
-figura = plt.figure()
-axis = figura.add_subplot(111, projection='3d')
+fig = plt.figure()
+axis = fig.add_subplot(111, projection='3d')
 
 while not converge:
     converge = True
@@ -33,26 +33,29 @@ while not converge:
         fsal = perceptron(xn, w)
 
         if fsal >= 0 and y[i] == 0:
-            """ Formula para clase 1: XnTw >= 0 pertenece a la clase 1 """
-            print(f'Para entrada {x}, w pertenece a la clase 1')
-            """ Formula para corregir clase 1: wn+1 = wn - r * xn """
-            w = w - r * xn
-            print(f'Funcion de salida: ', fsal)
+            print(f'Para entrada {x}, pertenece a la clase 1')
+            w = w - r * xn  
             converge = False
-        elif fsal <= 0 and y[i] == 1:
-            """ Formula para clase 2: XnTw <= 0 pertenece a la clase 2 """
-            print(f'Para entrada {x}, w pertenece a la clase 2')
-            """ Formula para corregir clase 2: wn+1 = wn + r * xn """
-            w = w + r * xn
-            print(f'Funcion de salida: ', fsal)
+        elif fsal <= 0 and y[i] == 1: 
+            print(f'Para entrada {x}, pertenece a la clase 2')
+            w = w + r * xn  # Corrección para clase 1
             converge = False
         else:
-            print(f'Para entrada {x}, w se mantiene sin cambios')
-
+            print(f'Para entrada {x}, permanece sin cambios')
     etapa = etapa + 1
 
 print('\nEl perceptrón ha convergido:')
 print(f'Valores finales de los pesos: {w}')
+
+for i in range(len(X)):
+    if y[i] == 0:
+        axis.scatter(X[i][0], X[i][1], X[i][2], c='red', marker='o', label='Clase 1')
+    else:
+        axis.scatter(X[i][0], X[i][1], X[i][2], c='blue', marker='x', label='Clase 2')
+
+axis.set_xlabel('X')
+axis.set_ylabel('Y')
+axis.set_zlabel('Z')
 
 for i, x in enumerate(X):
     if y[i] == 0:
