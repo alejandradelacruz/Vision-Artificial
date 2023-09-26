@@ -5,13 +5,15 @@ from mpl_toolkits.mplot3d import Axes3D
 def perceptron(x, w):
     return np.dot(x, w)
 
-X = np.array([[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 1, 1],
-              [1, 0, 0], [1, 0, 1], [1, 1, 0], [1, 1, 1]])
-y = np.array([1, 1, 1, 1, 0, 0, 0, 0])
+X = np.array([[0, 0, 0], [1, 0, 0], [1, 1, 0], [1, 0, 1],
+              [0, 1, 0], [0, 1, 1], [0, 0, 1], [1, 1, 1]])
+y = np.array([0, 0, 0, 0, 1, 1, 1, 1])
 
 w = np.zeros(4)
 for i in range(3):
     w[i] = float(input(f'Ingrese el valor del peso w{i + 1}: '))
+
+w[3] = float(input(f'Ingresa el valor de w0: '))
 
 r = float(input('Ingrese el valor del coeficiente de error r: '))
 if r <= 0:
@@ -72,11 +74,11 @@ axis.set_ylabel('Y')
 axis.set_zlabel('Z')
 
 axis.text(0, 0, 0, 'Clase 1', color='c')
-axis.text(0, 0, 1, 'Clase 1', color='c')
-axis.text(0, 1, 0, 'Clase 1', color='c')
-axis.text(0, 1, 1, 'Clase 1', color='c')
-axis.text(1, 0, 0, 'Clase 2', color='m')
-axis.text(1, 0, 1, 'Clase 2', color='m')
-axis.text(1, 1, 0, 'Clase 2', color='m')
+axis.text(1, 0, 0, 'Clase 1', color='c')
+axis.text(1, 1, 0, 'Clase 1', color='c')
+axis.text(1, 0, 1, 'Clase 1', color='c')
+axis.text(0, 1, 0, 'Clase 2', color='m')
+axis.text(0, 1, 1, 'Clase 2', color='m')
+axis.text(0, 0, 1, 'Clase 2', color='m')
 axis.text(1, 1, 1, 'Clase 2', color='m')
 plt.show()
